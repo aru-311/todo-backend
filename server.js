@@ -28,7 +28,7 @@ app.listen(
 
 //  GET api for getting Message
 
-app.post("/sample-get-request", async (req, res) =>  {
+app.post("/signup-post-request", async (req, res) =>  {
     const name = req.query.Name;
     const email = req.query.Email; 
     const password = req.query.Password;
