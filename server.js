@@ -7,7 +7,7 @@ const mongose = require("mongoose");
 const nameSchema = require("./schema/name_schema");
 
 // port
-const portNumber = 1234;
+//const portNumber = 1234;
 // Est connect to DB
 mongose.connect("mongodb://localhost:27017/activityTracker",
     () => {
@@ -19,16 +19,16 @@ mongose.connect("mongodb://localhost:27017/activityTracker",
     });
     
 // listen to the port
-app.listen(
-    portNumber,
-    () => {
-        console.log("app is listening on : " + portNumber);
-    }
-)
+//app.listen(
+//     portNumber,
+//     () => {
+//         console.log("app is listening on : " + portNumber);
+//     }
+// )
 
 //  GET api for getting Message
 
-app.post("/signup-post-request", async (req, res) =>  {
+app.post("/sign-post-request", async (req, res) =>  {
     const name = req.query.Name;
     const email = req.query.Email; 
     const password = req.query.Password;
@@ -39,6 +39,14 @@ app.post("/signup-post-request", async (req, res) =>  {
         Password: password,
         confirmPassword: confirmPass
     })
-    res.status(201).send("User has added Successfully!!!",result);
+    if(res.statusCode>=200 && res.statusCode<=300){
+        res.send("User has added Successfully!!!",result);
+    }
+    else if(res.statusCode>=400 && res.statusCode<=406){
+        res.send("User record exists!!!",result);
+    }
+    else if(res.statusCode==500){
+        res.send("Oops!!!",error);
+    }
 });
 
